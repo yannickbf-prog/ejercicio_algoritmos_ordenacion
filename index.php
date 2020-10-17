@@ -15,31 +15,24 @@ if( isset($_POST['envio_form'])){
             for($i = 0; $i < $arrlength; $i++){
                 //Cojemos el primer elemento para poder hacer la comparacion
                 $numero_mas_pequeño = $array_numeros[$i];
+                $posicion_mas_pequeño = $i;
                 
                 $x = $i+1;
                 for($x; $x < $arrlength; $x++) {
                     if($array_numeros[$x] < $numero_mas_pequeño){
                         $numero_mas_pequeño = $array_numeros[$x];
+                        $posicion_mas_pequeño = $x;
                     }
                 }
-                //Una vez tenemos el numero mas pequeño lo buscamos en el array y cuando lo encontramos intercambiamos posiciones (despues del ultimo numero mas pequeño que hemos añadido con el que acabamos de encontrar)
-                $seguir_buscando_numero =  true;
-                $y = 0;
+
+                //Una vez tenemos la posicion del numero mas pequeño lo intercambiamos (despues del ultimo numero mas pequeño que hemos añadido con el que acabamos de encontrar)
                 
-                while($seguir_buscando_numero){
-                    if($array_numeros[$y] == $numero_mas_pequeño){
+                //Guardamos uno de los numeros a intercambiar en una variable auxiliar
+                $numero_pequeño = $array_numeros[$posicion_mas_pequeño];
 
-                        //Guardamos uno de los numeros a intercambiar en una variable auxiliar
-                        $numero_pequeño = $array_numeros[$y];
-
-                        //Hacemos el intercambio
-                        $array_numeros[$y] = $array_numeros[$i];
-                        $array_numeros[$i] = $numero_pequeño;
-
-                        $seguir_buscando_numero = false;
-                    }
-                    $y++;
-                }
+                //Hacemos el intercambio
+                $array_numeros[$posicion_mas_pequeño] = $array_numeros[$i];
+                $array_numeros[$i] = $numero_pequeño;
             }
 
             //Guardamos en una variable el resultado del array passado a un string para mostrarlo
@@ -49,6 +42,10 @@ if( isset($_POST['envio_form'])){
             }
             return $resultado;           
         }
+        //Si el algoritmo de ordenacion solicitado es de intercambio nos dirije aqui
+        else if($algoritmo_ordenacion == "intercambio"){
+            
+        }
     }
     
     //Hacemos un switch y segun el tipo de metodo de entrada hacemos las operaciones para pasarle un array al metodo ordenarConAlgoritmoOrdenacion().
@@ -56,6 +53,7 @@ if( isset($_POST['envio_form'])){
     switch($valor_metodo_entrada){
         case "matriz_predeterminada":
             $resultado_final = ordenarConAlgoritmoOrdenacion(array(49, 24, 36, 80, 31), $valor_algoritmo_ordenacion);
+            echo $resultado_final;
             break;
     }
 }
@@ -81,7 +79,9 @@ if( isset($_POST['envio_form'])){
         <br>
         <label>Algoritmo de ordenacion: </label><br>
         <input type="radio" id="seleccion_directa" name="algoritmo_ordenacion" value="seleccion_directa" checked>
-		<label for="seleccion_directa">Selección directa</label><br><br>
+		<label for="seleccion_directa">Selección directa</label><br>
+        <input type="radio" id="intercambio" name="algoritmo_ordenacion" value="intercambio">
+		<label for="intercambio">Intercambio</label><br><br>
 		<input type="submit" name="envio_form" value="Envia">
 	</form>
 </body>
