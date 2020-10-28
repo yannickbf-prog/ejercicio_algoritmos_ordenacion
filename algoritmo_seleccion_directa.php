@@ -1,6 +1,12 @@
 <?php
 
-function ordenarConAlgoritmoSeleccionDirecta($array_numeros, $algoritmo_ordenacion, $numero_busqueda_binaria, $arrlength ){
+/**
+ * Con este funcion ordenamos numeros mediante algoritmo de seleccion directa
+ * @param $array_numeros Le pasamos un array con los numeros que queremos ordenar
+ * @param $numero_busqueda_binaria Le pasaremos el numero que quiere buscar por busqueda binaria
+ * @param $arrlength Tambien nos pasaran el lenght del array
+ */
+function ordenarConAlgoritmoSeleccionDirecta($array_numeros, $numero_busqueda_binaria, $arrlength ){
     //Recorremos todo el array
     for($i = 0; $i < $arrlength; $i++){
         //Guardaremos el int del numero mas pequeño y la posicion. 

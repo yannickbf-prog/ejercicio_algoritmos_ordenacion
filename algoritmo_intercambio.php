@@ -1,6 +1,11 @@
 <?php
-
-function ordenarConAlgoritmoIntercambio($array_numeros, $algoritmo_ordenacion, $numero_busqueda_binaria, $arrlength ){
+/**
+ * Con este funcion ordenamos numeros mediante algoritmo de seleccion directa
+ * @param $array_numeros Le pasamos un array con los numeros que queremos ordenar
+ * @param $numero_busqueda_binaria Le pasaremos el numero que quiere buscar por busqueda binaria
+ * @param $arrlength Tambien nos pasaran el lenght del array
+ */
+function ordenarConAlgoritmoIntercambio($array_numeros, $numero_busqueda_binaria, $arrlength ){
     //Recorremos todos los numeros menos el ultimo 
     //(no nos hace falta por que se compara un numero con todos los de delante, el ultimo numero no tiene ninguno delante)
     for($i = 0; $i < $arrlength-1; $i++){

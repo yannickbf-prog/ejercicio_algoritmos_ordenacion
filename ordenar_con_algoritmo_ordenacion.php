@@ -13,11 +13,11 @@ function ordenarConAlgoritmoOrdenacion($array_numeros, $algoritmo_ordenacion, $n
     $arrlength = count($array_numeros);
     //Si el usuario ha elegido ordenacion directa ordenaremos mediante este algoritmo
     if($algoritmo_ordenacion == "seleccion_directa"){
-        return ordenarConAlgoritmoSeleccionDirecta($array_numeros, $algoritmo_ordenacion, $numero_busqueda_binaria, $arrlength );
+        return ordenarConAlgoritmoSeleccionDirecta($array_numeros, $numero_busqueda_binaria, $arrlength );
     }
     //Si el algoritmo de ordenacion solicitado es de intercambio nos dirije aqui
     else if($algoritmo_ordenacion == "intercambio"){
-        return ordenarConAlgoritmoIntercambio($array_numeros, $algoritmo_ordenacion, $numero_busqueda_binaria, $arrlength );
+        return ordenarConAlgoritmoIntercambio($array_numeros, $numero_busqueda_binaria, $arrlength );
     }
 }
 ?>
