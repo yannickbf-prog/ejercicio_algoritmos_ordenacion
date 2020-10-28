@@ -12,35 +12,17 @@ $resultado_final = "";
  */
 if( isset($_POST['envio_form'])){
 
-    //Recuperamos los valores de los 2 menus con radio buttons
+    //Recuperamos los valores de los 2 menus con radio buttons y el numero a encontrar por busqueda binaria
     $valor_metodo_entrada = $_POST['metodo_entrada'];
     $valor_algoritmo_ordenacion = $_POST['algoritmo_ordenacion'];
     $numero_busqueda_binaria = $_POST['numero_busqueda_binaria'];
 
-    
+    //Hacemos include de las diferentes funciones
+    include 'ordenar_con_algoritmo_ordenacion.php';
     include 'algoritmo_seleccion_directa.php';
     include 'algoritmo_intercambio.php';
     include 'busqueda_binaria.php';
 
-    /**
-     * Definimos la funcion que vamos a utilizar para realizar la ordenacion. Ya sea mediante seleccion directa o intercambio
-     * @param $array_numeros Le pasamos un array con los numeros que queremos ordenar
-     * @param $algoritmo_ordenacion Le pasamos tambien que tipo de algoritmo de ordenacion vamos a utilizar
-     * @return string Nos retornara un string con un texto indicando el tipo de algoritmo de ordenacion elegido seguido de los numeros ordenados
-     */
-    function ordenarConAlgoritmoOrdenacion($array_numeros, $algoritmo_ordenacion, $numero_busqueda_binaria){
-        //Contamos la longitud del array
-        $arrlength = count($array_numeros);
-        //Si el usuario ha elegido ordenacion directa ordenaremos mediante este algoritmo
-        if($algoritmo_ordenacion == "seleccion_directa"){
-            return ordenarConAlgoritmoSeleccionDirecta($array_numeros, $algoritmo_ordenacion, $numero_busqueda_binaria, $arrlength );
-        }
-        //Si el algoritmo de ordenacion solicitado es de intercambio nos dirije aqui
-        else if($algoritmo_ordenacion == "intercambio"){
-            return ordenarConAlgoritmoIntercambio($array_numeros, $algoritmo_ordenacion, $numero_busqueda_binaria, $arrlength );
-        }
-    }
-    
     //Hacemos un switch y segun el tipo de metodo de entrada hacemos las operaciones para pasarle un array al metodo ordenarConAlgoritmoOrdenacion().
     //Al que tambien le pasaremos el tipo de algoritmo de ordenacion con el que queremos ordenar el array
     //Esta funcion nos retornara el resultado que pintaremos en el html
