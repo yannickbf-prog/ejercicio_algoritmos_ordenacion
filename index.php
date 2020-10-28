@@ -17,6 +17,9 @@ if( isset($_POST['envio_form'])){
     $valor_algoritmo_ordenacion = $_POST['algoritmo_ordenacion'];
     $numero_busqueda_binaria = $_POST['numero_busqueda_binaria'];
 
+    
+    include 'algoritmo_seleccion_directa.php';
+    include 'algoritmo_intercambio.php';
     include 'busqueda_binaria.php';
 
     /**
@@ -30,75 +33,11 @@ if( isset($_POST['envio_form'])){
         $arrlength = count($array_numeros);
         //Si el usuario ha elegido ordenacion directa ordenaremos mediante este algoritmo
         if($algoritmo_ordenacion == "seleccion_directa"){
-            //Recorremos todo el array
-            for($i = 0; $i < $arrlength; $i++){
-                //Guardaremos el int del numero mas pequeño y la posicion. 
-                //Cojemos el primer elemento para poder hacer la comparacion
-                $numero_mas_pequeño = $array_numeros[$i];
-                $posicion_mas_pequeño = $i;
-                
-                //En la primera iteracion comparamos el primer numero con el resto, si el numero con el que comparamos es mas pequeño guardamos su valor y su posicion como numero mas pequeño.
-                //De manera que si encontraramos un numero mas pequeño que el que acabamos de guardar quedaria su valor y su posicion guardada como el numero mas pequeño y asi succesibamente hasta el final del bucle
-                //De esta manera nos aseguramos de guardar el numero mas pequeño de todos los que estamos comparando.
-                //En la segunda iteracion comparamos el segundo numero con el resto (de los que tiene deante) y nos quedamos con el mas pequeño de la misma forma que en la primera iteracion.
-                //Asi suscesivamente hasta ordenar todos los numeros.
-                $x = $i+1;
-                for($x; $x < $arrlength; $x++) {
-                    if($array_numeros[$x] < $numero_mas_pequeño){
-                        $numero_mas_pequeño = $array_numeros[$x];
-                        $posicion_mas_pequeño = $x;
-                    }
-                }
-
-                //Una vez tenemos la posicion del numero mas pequeño lo intercambiamos (despues del ultimo numero mas pequeño que hemos añadido)
-                
-                //Guardamos el contenido de uno de los numeros a intercambiar en una variable auxiliar
-                $numero_pequeño = $array_numeros[$posicion_mas_pequeño];
-
-                //Hacemos el intercambio
-                $array_numeros[$posicion_mas_pequeño] = $array_numeros[$i];
-                $array_numeros[$i] = $numero_pequeño;
-            }
-
-            //Guardamos en una variable el resultado del array passado a un string para mostrarlo
-            $resultado = "El resultado ordenado mediante seleccion directa es: ";
-            foreach ($array_numeros as $numero) {
-                $resultado .= $numero." ";
-            }
-
-            //Usamos la funcion de busqueda binaria para buscar el numero
-            $numero_busqueda_binaria = (integer)$numero_busqueda_binaria;
-        
-            $resultado_busqueda_binaria = busquedaBinaria($array_numeros, $numero_busqueda_binaria);
-            echo $resultado_busqueda_binaria;
-
-            //Retornamos el string con el texto y el resultado
-            return $resultado;           
+            return ordenarConAlgoritmoSeleccionDirecta($array_numeros, $algoritmo_ordenacion, $numero_busqueda_binaria, $arrlength );
         }
         //Si el algoritmo de ordenacion solicitado es de intercambio nos dirije aqui
         else if($algoritmo_ordenacion == "intercambio"){
-            //Recorremos todos los numeros menos el ultimo 
-            //(no nos hace falta por que se compara un numero con todos los de delante, el ultimo numero no tiene ninguno delante)
-            for($i = 0; $i < $arrlength-1; $i++){
-                $j = $i+1;
-                //Comparamos el numero $i en el que nos encontramos en el anterior for con todos los que tiene delante
-                //En caso de que encontremos un numero menor que $i lo intercambiamos
-                //Cuando se llega al final del bucle $i es el numero mas pequeño
-                for($j; $j < $arrlength; $j++){
-                    if($array_numeros[$i] > $array_numeros[$j]){
-                        $var_aux = $array_numeros[$i];
-                        $array_numeros[$i] = $array_numeros[$j];
-                        $array_numeros[$j] = $var_aux;
-                    }
-                }
-            }
-            //Guardamos en una variable el resultado del array passado a un string para mostrarlo
-            $resultado = "El resultado ordenado mediante intercambio es: ";
-            foreach ($array_numeros as $numero) {
-                $resultado .= $numero." ";
-            }
-            //Retornamos el string con el texto y el resultado
-            return $resultado;
+            return ordenarConAlgoritmoIntercambio($array_numeros, $algoritmo_ordenacion, $numero_busqueda_binaria, $arrlength );
         }
     }
     
@@ -121,7 +60,7 @@ if( isset($_POST['envio_form'])){
                 array_push($array_aleatorio,rand(10, 99));
             }
             //Guardamos en la variable $resultado_final el resultado que nos devuelve la funcion despues de pasarle el array con los numeros y el tipo de algoritmo
-            $resultado_final = ordenarConAlgoritmoOrdenacion($array_aleatorio, $valor_algoritmo_ordenacion);
+            $resultado_final = ordenarConAlgoritmoOrdenacion($array_aleatorio, $valor_algoritmo_ordenacion, $numero_busqueda_binaria);
             break;
         case "entrada_teclado":
             //Guardaremos en un array los numeros que nos han pasado separados por espacios
@@ -130,7 +69,7 @@ if( isset($_POST['envio_form'])){
             //Guardamos en una variable el array que generamos con explode() (nos genera un array con los elementos separados por un espacio)
             $array_num_introducidos = explode(" ", $num_introducidos);
             //Le pasamos el array y el tipo de algoritmo y nos devuelve el resultado
-            $resultado_final = ordenarConAlgoritmoOrdenacion($array_num_introducidos, $valor_algoritmo_ordenacion);
+            $resultado_final = ordenarConAlgoritmoOrdenacion($array_num_introducidos, $valor_algoritmo_ordenacion, $numero_busqueda_binaria);
             break;
         case "entrada_fichero":
             //Cargaremos los numeros desde un fichero xml y los guardaremos en un array que le pasaremos a la funcion ordenarConAlgoritmoOrdenacion()
@@ -148,7 +87,7 @@ if( isset($_POST['envio_form'])){
                 array_push($array_numeros_xml,$nodo_numero);
             }
             //Guardamos en la variable $resultado_final el resultado de pasarle el array junto al tipo de algoritmo seleccionado
-            $resultado_final = ordenarConAlgoritmoOrdenacion($array_numeros_xml, $valor_algoritmo_ordenacion);
+            $resultado_final = ordenarConAlgoritmoOrdenacion($array_numeros_xml, $valor_algoritmo_ordenacion, $numero_busqueda_binaria);
             break;
     }
 }
