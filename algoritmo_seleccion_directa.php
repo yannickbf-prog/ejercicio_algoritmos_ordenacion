@@ -33,7 +33,7 @@ function ordenarConAlgoritmoSeleccionDirecta($array_numeros, $numero_busqueda_bi
         $numero_pequeño = $array_numeros[$posicion_mas_pequeño];
 
         //Hacemos el intercambio
-        $array_numeros[$posicion_mas_pequeño] = $array_numeros[$i];
+    $array_numeros[$posicion_mas_pequeño] = $array_numeros[$i];
         $array_numeros[$i] = $numero_pequeño;
     }
 
@@ -46,8 +46,8 @@ function ordenarConAlgoritmoSeleccionDirecta($array_numeros, $numero_busqueda_bi
     //Usamos la funcion de busqueda binaria para buscar el numero
     $numero_busqueda_binaria = (integer)$numero_busqueda_binaria;
 
-    //$resultado_busqueda_binaria = busquedaBinaria($array_numeros, $numero_busqueda_binaria);
-    //echo $resultado_busqueda_binaria;
+    $resultado_busqueda_binaria = busquedaBinaria($array_numeros, $numero_busqueda_binaria);
+    echo $resultado_busqueda_binaria;
 
     //Retornamos el string con el texto y el resultado
     return $resultado;        
