@@ -2,9 +2,10 @@
 
 /**
  * Con este funcion ordenamos numeros mediante algoritmo de seleccion directa
- * @param $array_numeros Le pasamos un array con los numeros que queremos ordenar
- * @param $numero_busqueda_binaria Le pasaremos el numero que quiere buscar por busqueda binaria
- * @param $arrlength Tambien nos pasaran el lenght del array
+ * @param array $array_numeros Le pasamos un array con los numeros que queremos ordenar
+ * @param string $numero_busqueda_binaria Le pasaremos el numero que quiere buscar por busqueda binaria
+ * @param int $arrlength Tambien nos pasaran el lenght del array
+ * @return string nos retorna un string en el que nos informa del resultado de los calculos
  */
 function ordenarConAlgoritmoSeleccionDirecta($array_numeros, $numero_busqueda_binaria, $arrlength ){
     //Recorremos todo el array

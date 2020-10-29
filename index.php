@@ -18,7 +18,7 @@ if( isset($_POST['envio_form'])){
     $numero_busqueda_binaria = $_POST['numero_busqueda_binaria'];
 
     //Hacemos include de las diferentes funciones
-    include 'ordenar_con_algoritmo_ordenacion.php';
+    include 'ordenar_con_algoritmo_ordenacion_y_busqueda_binaria.php';
     include 'algoritmo_seleccion_directa.php';
     include 'algoritmo_intercambio.php';
     include 'busqueda_binaria.php';
@@ -29,7 +29,7 @@ if( isset($_POST['envio_form'])){
     switch($valor_metodo_entrada){
         case "matriz_predeterminada":
             //En este caso le pasaremos un array predeterminado directamente y guardaremos el resultado en la variable $resultado_final
-            $resultado_final = ordenarConAlgoritmoOrdenacion(array(49, 24, 36, 80, 31), $valor_algoritmo_ordenacion, $numero_busqueda_binaria);
+            $resultado_final = ordenarConAlgoritmoOrdenacionYBusquedaBinaria(array(49, 24, 36, 80, 31), $valor_algoritmo_ordenacion, $numero_busqueda_binaria);
             break;
         case "generacion_aleatoria":
             //Guardaremos en un array tantos numeros aleatorios como hayan sido solicitados y se lo pasaremos a la funcion
@@ -42,7 +42,7 @@ if( isset($_POST['envio_form'])){
                 array_push($array_aleatorio,rand(10, 99));
             }
             //Guardamos en la variable $resultado_final el resultado que nos devuelve la funcion despues de pasarle el array con los numeros y el tipo de algoritmo
-            $resultado_final = ordenarConAlgoritmoOrdenacion($array_aleatorio, $valor_algoritmo_ordenacion, $numero_busqueda_binaria);
+            $resultado_final = ordenarConAlgoritmoOrdenacionYBusquedaBinaria($array_aleatorio, $valor_algoritmo_ordenacion, $numero_busqueda_binaria);
             break;
         case "entrada_teclado":
             //Guardaremos en un array los numeros que nos han pasado separados por espacios
@@ -51,7 +51,7 @@ if( isset($_POST['envio_form'])){
             //Guardamos en una variable el array que generamos con explode() (nos genera un array con los elementos separados por un espacio)
             $array_num_introducidos = explode(" ", $num_introducidos);
             //Le pasamos el array y el tipo de algoritmo y nos devuelve el resultado
-            $resultado_final = ordenarConAlgoritmoOrdenacion($array_num_introducidos, $valor_algoritmo_ordenacion, $numero_busqueda_binaria);
+            $resultado_final = ordenarConAlgoritmoOrdenacionYBusquedaBinaria($array_num_introducidos, $valor_algoritmo_ordenacion, $numero_busqueda_binaria);
             break;
         case "entrada_fichero":
             //Cargaremos los numeros desde un fichero xml y los guardaremos en un array que le pasaremos a la funcion ordenarConAlgoritmoOrdenacion()
@@ -69,7 +69,7 @@ if( isset($_POST['envio_form'])){
                 array_push($array_numeros_xml,$nodo_numero);
             }
             //Guardamos en la variable $resultado_final el resultado de pasarle el array junto al tipo de algoritmo seleccionado
-            $resultado_final = ordenarConAlgoritmoOrdenacion($array_numeros_xml, $valor_algoritmo_ordenacion, $numero_busqueda_binaria);
+            $resultado_final = ordenarConAlgoritmoOrdenacionYBusquedaBinaria($array_numeros_xml, $valor_algoritmo_ordenacion, $numero_busqueda_binaria);
             break;
     }
 }
@@ -104,7 +104,7 @@ if( isset($_POST['envio_form'])){
         <label for="intercambio">Intercambio</label><br><br>
         <label>Busqueda binaria: </label><br>
         <input type="number" name="numero_busqueda_binaria" placeholder="ej. 40"><br>
-        <span>ALERTA! si no pones un numero que exista el programa no va a funcionar. Dara vueltas en un while. En el <a href="busqueda_binaria_prueba.php" target="_blank">script orginal</a> funciona, pero al pasarlo a funcion falla, no he llegado a averiguar porque.</span><br><br>
+        <span>ALERTA! si no pones un numero que exista el programa no va a funcionar. Dara vueltas en un while. En el <a href="busqueda_binaria_prueba.php" target="_blank">script orginal</a> funciona, pero al pasarlo a funcion falla, no he llegado a averiguar porque. Si quieres dehabilitar esta funcion del programa, para poder ver por ejemplo la generacion aleatoria sin problemas comenta las lineas: de 47 a 51 de algoritmo_seleccion_directa.php y de 31 a 35 de algoritmo_intercambio.php </span><br><br>
 		<input type="submit" name="envio_form" value="Envia"><br><br>
 	</form>
     <!-- Mostraremos los resultados en caso de existir, en caso contrario no mostraremos nada -->

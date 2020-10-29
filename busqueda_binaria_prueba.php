@@ -43,6 +43,7 @@ while($seguir_buscando_numero){
     }
 }
 
+//Si no se ha encontrado el numero mostramos un mensaje, si se ha encontrado mostramos otro
 if($posicion_elemento == "no encontrado"){
     echo "Numero ".$numero_a_encontrar." ".$posicion_elemento;
 }
