@@ -47,7 +47,8 @@ function ordenarConAlgoritmoSeleccionDirecta($array_numeros, $numero_busqueda_bi
     $numero_busqueda_binaria = (integer)$numero_busqueda_binaria;
 
     $resultado_busqueda_binaria = busquedaBinaria($array_numeros, $numero_busqueda_binaria);
-    echo $resultado_busqueda_binaria;
+    
+    $resultado .= "<br>".$resultado_busqueda_binaria;
 
     //Retornamos el string con el texto y el resultado
     return $resultado;        

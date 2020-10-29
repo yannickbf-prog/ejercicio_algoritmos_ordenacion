@@ -2,18 +2,6 @@
 
 function busquedaBinaria($array_numeros_ordenados, $numero_a_encontrar){
 
-    //$array_numeros_ordenados = [24, 31, 36, 80, 92, 110];
-    //$numero_a_encontrar = 110;
-    
-    /*echo var_dump($array_numeros_ordenados);
-    echo var_dump($numero_a_encontrar);
-
-    $array_numeros_ordenados = [24, 31, 36, 49, 80];
-    $numero_a_encontrar = 210;
-
-    echo var_dump($array_numeros_ordenados);
-    echo var_dump($numero_a_encontrar);*/
-
     //Definimos los primeros indices con los que hara el calculo para buscar el central como el primer elemento y el ultimo
     $indice_bajo = 0;
     $indice_alto = count($array_numeros_ordenados) - 1;
@@ -63,7 +51,5 @@ function busquedaBinaria($array_numeros_ordenados, $numero_a_encontrar){
 
 }
 
-//$array_numeros_ordenados = [24, 31, 36, 80, 92, 110];
-//$numero_a_encontrar = 210;
 
 ?>

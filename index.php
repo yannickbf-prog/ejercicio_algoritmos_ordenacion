@@ -103,7 +103,8 @@ if( isset($_POST['envio_form'])){
         <input type="radio" id="intercambio" name="algoritmo_ordenacion" value="intercambio">
         <label for="intercambio">Intercambio</label><br><br>
         <label>Busqueda binaria: </label><br>
-        <input type="number" name="numero_busqueda_binaria" placeholder="ej. 40"><br><br>
+        <input type="number" name="numero_busqueda_binaria" placeholder="ej. 40"><br>
+        <span>ALERTA! si no pones un numero que exista el programa no va a funcionar. Dara vueltas en un while. En el <a href="busqueda_binaria_prueba.php" target="_blank">script orginal</a> funciona, pero al pasarlo a funcion falla, no he llegado a averiguar porque.</span><br><br>
 		<input type="submit" name="envio_form" value="Envia"><br><br>
 	</form>
     <!-- Mostraremos los resultados en caso de existir, en caso contrario no mostraremos nada -->
