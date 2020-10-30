@@ -48,7 +48,7 @@ if($posicion_elemento == "no encontrado"){
     echo "Numero ".$numero_a_encontrar." ".$posicion_elemento;
 }
 else{
-    echo "El numero ".$numero_a_encontrar." ha sido encontrado en la posicion o indice del array: ".$posicion_elemento;
+    echo "El numero ".$numero_a_encontrar." ha sido encontrado en indice del array: ".$posicion_elemento;
 }
 
 ?>
