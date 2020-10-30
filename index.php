@@ -18,6 +18,7 @@ if( isset($_POST['envio_form'])){
     $numero_busqueda_binaria = $_POST['numero_busqueda_binaria'];
 
     //Hacemos include de las diferentes funciones
+    include 'ordenar_con_algoritmo_ordenacion.php';
     include 'ordenar_con_algoritmo_ordenacion_y_busqueda_binaria.php';
     include 'algoritmo_seleccion_directa.php';
     include 'algoritmo_intercambio.php';
