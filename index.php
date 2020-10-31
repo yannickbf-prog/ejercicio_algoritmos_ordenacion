@@ -5,7 +5,7 @@
  */
 
 //Inicializamos variable en la que guardaremos el resultado final. Como podemos ver en la linea 178 si esta vacia no mostramos nada y si tiene algun contenido si lo mostramos
-$resultado_final = "";
+$resultado_final = array();
 
 /**
  * Si se ha dado al boton "Envia" entraremos en este if, aqui dentro realizaremos todas las operaciones necesarias para mostrar el resultado
@@ -13,24 +13,23 @@ $resultado_final = "";
 if( isset($_POST['envio_form'])){
 
     //Recuperamos los valores de los 2 menus con radio buttons y el numero a encontrar por busqueda binaria
-    $valor_metodo_entrada = $_POST['metodo_entrada'];
-    $valor_algoritmo_ordenacion = $_POST['algoritmo_ordenacion'];
+    $metodo_entrada = $_POST['metodo_entrada'];
+    $algoritmo = $_POST['algoritmo_ordenacion'];
     $numero_busqueda_binaria = $_POST['numero_busqueda_binaria'];
 
     //Hacemos include de las diferentes funciones
-    include 'ordenar_con_algoritmo_ordenacion.php';
-    include 'ordenar_con_algoritmo_ordenacion_y_busqueda_binaria.php';
-    include 'algoritmo_seleccion_directa.php';
-    include 'algoritmo_intercambio.php';
+    include 'ordenar.php';
     include 'busqueda_binaria.php';
+
+    //$busqueda_binaria = busquedaBinaria(array(49, 24, 36, 80, 31), $numero_busqueda_binaria);
 
     //Hacemos un switch y segun el tipo de metodo de entrada hacemos las operaciones para pasarle un array al metodo ordenarConAlgoritmoOrdenacion().
     //Al que tambien le pasaremos el tipo de algoritmo de ordenacion con el que queremos ordenar el array
     //Esta funcion nos retornara el resultado que pintaremos en el html
-    switch($valor_metodo_entrada){
+    switch($metodo_entrada){
         case "matriz_predeterminada":
             //En este caso le pasaremos un array predeterminado directamente y guardaremos el resultado en la variable $resultado_final
-            $resultado_final = ordenarConAlgoritmoOrdenacionYBusquedaBinaria(array(49, 24, 36, 80, 31), $valor_algoritmo_ordenacion, $numero_busqueda_binaria);
+            $resultado_final = ordenar(array(49, 24, 36, 80, 31), $algoritmo);
             break;
         case "generacion_aleatoria":
             //Guardaremos en un array tantos numeros aleatorios como hayan sido solicitados y se lo pasaremos a la funcion
@@ -43,7 +42,7 @@ if( isset($_POST['envio_form'])){
                 array_push($array_aleatorio,rand(10, 99));
             }
             //Guardamos en la variable $resultado_final el resultado que nos devuelve la funcion despues de pasarle el array con los numeros y el tipo de algoritmo
-            $resultado_final = ordenarConAlgoritmoOrdenacionYBusquedaBinaria($array_aleatorio, $valor_algoritmo_ordenacion, $numero_busqueda_binaria);
+            $resultado_final = ordenar($array_aleatorio, $algoritmo);
             break;
         case "entrada_teclado":
             //Guardaremos en un array los numeros que nos han pasado separados por espacios
@@ -52,7 +51,7 @@ if( isset($_POST['envio_form'])){
             //Guardamos en una variable el array que generamos con explode() (nos genera un array con los elementos separados por un espacio)
             $array_num_introducidos = explode(" ", $num_introducidos);
             //Le pasamos el array y el tipo de algoritmo y nos devuelve el resultado
-            $resultado_final = ordenarConAlgoritmoOrdenacionYBusquedaBinaria($array_num_introducidos, $valor_algoritmo_ordenacion, $numero_busqueda_binaria);
+            $resultado_final = ordenar($array_num_introducidos, $algoritmo);
             break;
         case "entrada_fichero":
             //Cargaremos los numeros desde un fichero xml y los guardaremos en un array que le pasaremos a la funcion ordenarConAlgoritmoOrdenacion()
@@ -70,7 +69,7 @@ if( isset($_POST['envio_form'])){
                 array_push($array_numeros_xml,$nodo_numero);
             }
             //Guardamos en la variable $resultado_final el resultado de pasarle el array junto al tipo de algoritmo seleccionado
-            $resultado_final = ordenarConAlgoritmoOrdenacionYBusquedaBinaria($array_numeros_xml, $valor_algoritmo_ordenacion, $numero_busqueda_binaria);
+            $resultado_final = ordenar($array_numeros_xml, $algoritmo);
             break;
     }
 }
@@ -87,7 +86,7 @@ if( isset($_POST['envio_form'])){
     <form method="POST" action="index.php" class="formulario_ordenacion">
         <br><label>Metodo de entrada: </label><br>
 		<input type="radio" id="matriz_predeterminada" name="metodo_entrada" value="matriz_predeterminada" checked>
-		<label for="matriz_predeterminada">Matriz predeterminada 49, 24, 36, 80, 31 <label><br>
+		<label for="matriz_predeterminada">Matriz predeterminada<label><br>
 		<input type="radio" id="generacion_aleatoria" name="metodo_entrada" value="generacion_aleatoria">
 		<label for="generacion_aleatoria">Generacion aleatoria</label>
         <input type="number" name="numero_numeros_generados" value="5"><br>
@@ -110,7 +109,18 @@ if( isset($_POST['envio_form'])){
 	</form>
     <!-- Mostraremos los resultados en caso de existir, en caso contrario no mostraremos nada -->
     <section>
-        <?php if($resultado_final != ""){echo "<span>".$resultado_final."</span>";} ?>
+        <?php 
+        if(!empty($resultado_final))
+        {
+            echo "<span>Numeros ordenados: ";
+            
+            foreach ($resultado_final as $numero) {
+                echo $numero." ";
+            }
+
+            echo "</span>";
+        } 
+        ?>
     </section>
 </body>
 </html>

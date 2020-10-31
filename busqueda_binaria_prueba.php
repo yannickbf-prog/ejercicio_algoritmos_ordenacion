@@ -1,7 +1,7 @@
 <?php
 
 $array_numeros_ordenados = [24, 31, 36, 80, 92, 110];
-$numero_a_encontrar = 110;
+$numero_a_encontrar = 210;
 
 //Definimos los primeros indices con los que hara el calculo para buscar el central como el primer elemento y el ultimo
 $indice_bajo = 0;
@@ -11,7 +11,7 @@ $indice_alto = count($array_numeros_ordenados) - 1;
 $elemento_central = (integer)(($indice_bajo + $indice_alto) / 2);
 
 //Definimos las variables para el funcionamiento de la busqueda
-$posicion_elemento = "no encontrado";
+$posicion_elemento = -1;
 $seguir_buscando_numero =  true;
 $numero_encontrado = false;
 
@@ -43,12 +43,6 @@ while($seguir_buscando_numero){
     }
 }
 
-//Si no se ha encontrado el numero mostramos un mensaje, si se ha encontrado mostramos otro
-if($posicion_elemento == "no encontrado"){
-    echo "Numero ".$numero_a_encontrar." ".$posicion_elemento;
-}
-else{
-    echo "El numero ".$numero_a_encontrar." ha sido encontrado en indice del array: ".$posicion_elemento;
-}
+echo $posicion_elemento;
 
 ?>

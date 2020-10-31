@@ -15,7 +15,7 @@ function busquedaBinaria($array_numeros_ordenados, $numero_a_encontrar){
     $elemento_central = (integer)(($indice_bajo + $indice_alto) / 2);
 
     //Definimos las variables para el funcionamiento de la busqueda
-    $posicion_elemento = "no encontrado";
+    $posicion_elemento = -1;
     $seguir_buscando_numero =  true;
     $numero_encontrado = false;
 
@@ -47,13 +47,7 @@ function busquedaBinaria($array_numeros_ordenados, $numero_a_encontrar){
         }
     }
 
-    //Si no se ha encontrado el numero mostramos un mensaje, si se ha encontrado mostramos otro
-    if($posicion_elemento == "no encontrado"){
-        return "Numero ".$numero_a_encontrar." ".$posicion_elemento;
-    }
-    else{
-        return "El numero ".$numero_a_encontrar." ha sido encontrado en indice del array: ".$posicion_elemento;
-    }
+    return $posicion_elemento;
 }
 
 
