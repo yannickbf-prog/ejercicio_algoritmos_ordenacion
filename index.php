@@ -21,7 +21,7 @@ if( isset($_POST['envio_form'])){
     include 'ordenar.php';
     include 'busqueda_binaria.php';
 
-    //$busqueda_binaria = busquedaBinaria(array(49, 24, 36, 80, 31), $numero_busqueda_binaria);
+    //$busqueda_binaria = busquedaBinaria(array(49, 24, 36, 80, 31), 49);
 
     //Hacemos un switch y segun el tipo de metodo de entrada hacemos las operaciones para pasarle un array al metodo ordenarConAlgoritmoOrdenacion().
     //Al que tambien le pasaremos el tipo de algoritmo de ordenacion con el que queremos ordenar el array
