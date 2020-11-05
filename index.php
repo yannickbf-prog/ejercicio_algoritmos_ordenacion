@@ -4,28 +4,22 @@
  * @author Yannick
  */
 
-//Inicializamos variable en la que guardaremos el resultado final. Como podemos ver en la linea 178 si esta vacia no mostramos nada y si tiene algun contenido si lo mostramos
+//Inicializamos variable en la que guardaremos el resultado final (array de numeros ordenados). Como podemos ver en la linea 145 si esta vacia no mostramos nada y si tiene algun contenido si lo mostramos
 $resultado_final = array();
 
 /**
- * Si se ha dado al boton "Envia" entraremos en este if, aqui dentro realizaremos todas las operaciones necesarias para mostrar el resultado
+ * Si se ha dado al boton "Envia" de la seccion de ordenacion entraremos en este if, aqui dentro realizaremos todas las operaciones necesarias para mostrar el resultado de ordenar por seleccion directa o intercambio
  */
 if( isset($_POST['envio_form'])){
 
-    //Recuperamos los valores de los 2 menus con radio buttons y el numero a encontrar por busqueda binaria
+    //Recuperamos los valores de los 2 menus con radio buttons
     $metodo_entrada = $_POST['metodo_entrada'];
     $algoritmo = $_POST['algoritmo_ordenacion'];
-    $numero_busqueda_binaria = $_POST['numero_busqueda_binaria'];
 
-    //Hacemos include de las diferentes funciones
+    //Hacemos include de las funciones para ordenar
     include 'ordenar.php';
-    include 'busqueda_binaria.php';
 
-    //$busqueda_binaria = busquedaBinaria(array(49, 24, 36, 80, 31), 49);
-
-    //Hacemos un switch y segun el tipo de metodo de entrada hacemos las operaciones para pasarle un array al metodo ordenarConAlgoritmoOrdenacion().
-    //Al que tambien le pasaremos el tipo de algoritmo de ordenacion con el que queremos ordenar el array
-    //Esta funcion nos retornara el resultado que pintaremos en el html
+    //Hacemos un switch y segun el tipo de metodo de entrada hacemos las operaciones para pasarle un array al metodo correspondiente.
     switch($metodo_entrada){
         case "matriz_predeterminada":
             //En este caso le pasaremos un array predeterminado directamente y guardaremos el resultado en la variable $resultado_final
@@ -33,7 +27,7 @@ if( isset($_POST['envio_form'])){
             break;
         case "generacion_aleatoria":
             //Guardaremos en un array tantos numeros aleatorios como hayan sido solicitados y se lo pasaremos a la funcion
-            //Creamos arral vacio
+            //Creamos array vacio
             $array_aleatorio = array();
             //Recuperamos el numero de numeros aleatorios que nos han pasado por $_POST
             $numero_numeros_aleatorios = $_POST['numero_numeros_generados'];
@@ -41,7 +35,7 @@ if( isset($_POST['envio_form'])){
             for($i = 0; $i < $numero_numeros_aleatorios; $i++){
                 array_push($array_aleatorio,rand(10, 99));
             }
-            //Guardamos en la variable $resultado_final el resultado que nos devuelve la funcion despues de pasarle el array con los numeros y el tipo de algoritmo
+            //Guardamos en la variable $resultado_final
             $resultado_final = $algoritmo($array_aleatorio);
             break;
         case "entrada_teclado":
@@ -54,7 +48,7 @@ if( isset($_POST['envio_form'])){
             $resultado_final = $algoritmo($array_num_introducidos);
             break;
         case "entrada_fichero":
-            //Cargaremos los numeros desde un fichero xml y los guardaremos en un array que le pasaremos a la funcion ordenarConAlgoritmoOrdenacion()
+            //Cargaremos los numeros desde un fichero xml y los guardaremos en un array que le pasaremos a la funcion correspondiente
             //Cargamos el XML desde un archivo xml
             $xml = simplexml_load_file('xml/archivo.xml');
             //Contamos cuantos nodos numero tenemos
@@ -73,6 +67,33 @@ if( isset($_POST['envio_form'])){
             break;
     }
 }
+/**
+ * Si se ha dado al boton envia de la seccion busqueda binaria entraremos aqui. Aqui realizaremos las operaciones para encontrar un numero en un array ordenado mediante busqueda binaria
+ */
+if( isset($_POST['envio_form_binaria'])){
+    //Recojemos los datos
+    $numeros_ordenados = $_POST['numeros_ordenados'];
+    $numero_encontrar = $_POST['numero_encontrar'];
+
+    //Pasamos los numeros ordenados a array
+    $numeros_ordenados_array = explode(" ", $numeros_ordenados);
+
+    //Incluimos la funcion que realiza la busqueda binaria
+    include 'busqueda_binaria.php';
+
+    //Utilizamos la funcion para busqueda bianria que nos devuelve el numero de indice del array del numero a encontrar en caso de encontrarlo, en caso contrario devuelve -1 
+    $resultado_busqueda = busquedaBinaria($numeros_ordenados_array, $numero_encontrar);
+
+    //Guardamos resultado en formato html y lo mostramos en el html
+    $resultado_binaria = "<span>";
+    if($resultado_busqueda == -1){
+        $resultado_binaria .= "El numero ".$numero_encontrar." no ha sido encontrado en la lista de numeros ".$numeros_ordenados."</span>";
+    }
+    else{
+        $resultado_binaria .= "El numero ".$numero_encontrar." ha sido encontrado en el indice del array ".$resultado_busqueda." de los siguientes numeros ".$numeros_ordenados."</span>";
+    }
+    
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -84,6 +105,7 @@ if( isset($_POST['envio_form'])){
 <body>
     <!--Mostramos un form en el que nos pasaran la informacion necesaria por metodo POST a la misma pagina para calcular y pintar los resultados -->
     <form method="POST" action="index.php" class="formulario_ordenacion">
+        <h1>Algoritmos de ordenacion</h1>
         <br><label>Metodo de entrada: </label><br>
 		<input type="radio" id="matriz_predeterminada" name="metodo_entrada" value="matriz_predeterminada" checked>
 		<label for="matriz_predeterminada">Matriz predeterminada<label><br>
@@ -102,14 +124,21 @@ if( isset($_POST['envio_form'])){
 		<label for="seleccion_directa">Selección directa</label><br>
         <input type="radio" id="intercambio" name="algoritmo_ordenacion" value="intercambio">
         <label for="intercambio">Intercambio</label><br><br>
-        <label>Busqueda binaria: </label><br>
-        <input type="number" name="numero_busqueda_binaria" placeholder="ej. 40"><br>
-        <span>ALERTA! si no pones un numero que exista el programa no va a funcionar. Dara vueltas en un while. En el <a href="busqueda_binaria_prueba.php" target="_blank">script orginal</a> funciona, pero al pasarlo a funcion falla, no he llegado a averiguar porque. Si quieres dehabilitar esta funcion del programa, para poder ver por ejemplo la generacion aleatoria sin problemas comenta las lineas: de 47 a 51 de algoritmo_seleccion_directa.php y de 31 a 35 de algoritmo_intercambio.php </span><br><br>
 		<input type="submit" name="envio_form" value="Envia"><br><br>
-	</form>
+    </form>
+    <form method="POST" action="index.php" class="formulario_busqueda_binaria">
+        <h1>Busqueda binaria</h1>
+        <label>Escribe numeros ordenados separados por espacios:</label>
+        <input type="text" name="numeros_ordenados"><br>
+        <label>Escribe el numero que quieres encontrar: </label>
+        <input type="text" name="numero_encontrar"><br><br>
+        <input type="submit" name="envio_form_binaria" value="Envia"><br><br>
+    </form>
     <!-- Mostraremos los resultados en caso de existir, en caso contrario no mostraremos nada -->
     <section>
+        <h2>Resultado</h2>
         <?php 
+        //Si el array de numeros ordenados no esta vacio (es decir, si es la primera vez que se carga la pagina) mostraremos su contenido formateado con html
         if(!empty($resultado_final))
         {
             echo "<span>Numeros ordenados: ";
@@ -119,7 +148,10 @@ if( isset($_POST['envio_form'])){
             }
 
             echo "</span>";
-        } 
+        }
+        //Comprovamos que exista $resultado_binaria, si hemos enviado formulario de busqueda binaria deveria de existir
+        //En caso que exista mostramos el resultado en formato html que hemos creado mas arriba
+        if(isset($resultado_binaria)) echo $resultado_binaria; 
         ?>
     </section>
 </body>

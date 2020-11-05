@@ -1,9 +1,9 @@
 <?php
 /**
- * Con esta funcion buscamos un numero en un array ordenado mediante busqueda binaria
+ * Con esta funcion buscamos un numero en un array ordenado mediante busqueda binaria y devolvemos su indice en el array
  * @param array $array_numeros_ordenados array de numeros ordenados que le pasamos a la funcion
- * @param int $numero_a_encontrar numero que queremos encontrar
- * @return string devolvemos un string con la informacion que hemos calculado (si el numero ha sido encontrado y en que posicion del array esta)
+ * @param int $numero_a_encontrar numero que queremos encontrar. Si no encuentra devuelve -1
+ * @return int $posicion_elemento devolvemos el indice del array en el que se encuentra el numero buscado
  */
 function busquedaBinaria($array_numeros_ordenados, $numero_a_encontrar){
 

@@ -1,6 +1,15 @@
 <?php
+declare(strict_types = 1);
 
-function seleccion_directa($array_numeros){
+$metodos = ["seleccion_directa", "intercambio"];
+
+/**
+ * Metodo para la realizacion de ordenacion mediante seleccion directa
+ * @param array $array_numeros le pasaremos un array de numeros para que los ordene
+ * @return array $array_numeros nos retorna un array con los numeros ordenados
+ */
+function seleccion_directa(array $array_numeros):array{
+
     //Contamos la longitud del array
     $arrlength = count($array_numeros);
     //Recorremos todo el array
@@ -9,7 +18,7 @@ function seleccion_directa($array_numeros){
         //Cojemos el primer elemento para poder hacer la comparacion
         $numero_mas_pequeño = $array_numeros[$i];
         $posicion_mas_pequeño = $i;
-        
+            
         //En la primera iteracion comparamos el primer numero con el resto, si el numero con el que comparamos es mas pequeño guardamos su valor y su posicion como numero mas pequeño.
         //De manera que si encontraramos un numero mas pequeño que el que acabamos de guardar quedaria su valor y su posicion guardada como el numero mas pequeño y asi succesibamente hasta el final del bucle
         //De esta manera nos aseguramos de guardar el numero mas pequeño de todos los que estamos comparando.
@@ -22,22 +31,27 @@ function seleccion_directa($array_numeros){
                 $posicion_mas_pequeño = $x;
             }
         }
-
+    
         //Una vez tenemos la posicion del numero mas pequeño lo intercambiamos (despues del ultimo numero mas pequeño que hemos añadido)
-        
+            
         //Guardamos el contenido de uno de los numeros a intercambiar en una variable auxiliar
         $numero_pequeño = $array_numeros[$posicion_mas_pequeño];
-
+    
         //Hacemos el intercambio
         $array_numeros[$posicion_mas_pequeño] = $array_numeros[$i];
         $array_numeros[$i] = $numero_pequeño;
     }
-
+    
     //Retornamos el array de numeros ordenados
-    return $array_numeros;          
+    return $array_numeros;         
 }
 
-function intercambio($array_numeros){
+/**
+ * Metodo para la realizacion de ordenacion mediante intercambio
+ * @param $array_numeros le pasaremos un arral de numeros para que los ordene
+ * @return $array_numeros nos retorna un array con los numeros ordenados
+ */
+function intercambio(array $array_numeros){
     //Contamos la longitud del array
     $arrlength = count($array_numeros);
     //Recorremos todos los numeros menos el ultimo 
