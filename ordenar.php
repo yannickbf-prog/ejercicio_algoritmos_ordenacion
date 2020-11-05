@@ -1,6 +1,6 @@
 <?php
 
-function seleccionDirecta($array_numeros){
+function seleccion_directa($array_numeros){
     //Contamos la longitud del array
     $arrlength = count($array_numeros);
     //Recorremos todo el array
@@ -60,13 +60,3 @@ function intercambio($array_numeros){
     return $array_numeros;
 }
 
-function ordenar($array_numeros, $algoritmo_ordenacion){
-    //Si el usuario ha elegido ordenacion directa ordenaremos mediante este algoritmo
-    if($algoritmo_ordenacion == "seleccion_directa"){
-        return seleccionDirecta($array_numeros);
-    }
-    //Si el algoritmo de ordenacion solicitado es de intercambio nos dirije aqui
-    else if($algoritmo_ordenacion == "intercambio"){
-        return intercambio($array_numeros);
-    }
-}

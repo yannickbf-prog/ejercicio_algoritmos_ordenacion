@@ -29,7 +29,7 @@ if( isset($_POST['envio_form'])){
     switch($metodo_entrada){
         case "matriz_predeterminada":
             //En este caso le pasaremos un array predeterminado directamente y guardaremos el resultado en la variable $resultado_final
-            $resultado_final = ordenar(array(49, 24, 36, 80, 31), $algoritmo);
+            $resultado_final = $algoritmo(array(49, 24, 36, 80, 31));
             break;
         case "generacion_aleatoria":
             //Guardaremos en un array tantos numeros aleatorios como hayan sido solicitados y se lo pasaremos a la funcion
@@ -42,7 +42,7 @@ if( isset($_POST['envio_form'])){
                 array_push($array_aleatorio,rand(10, 99));
             }
             //Guardamos en la variable $resultado_final el resultado que nos devuelve la funcion despues de pasarle el array con los numeros y el tipo de algoritmo
-            $resultado_final = ordenar($array_aleatorio, $algoritmo);
+            $resultado_final = $algoritmo($array_aleatorio);
             break;
         case "entrada_teclado":
             //Guardaremos en un array los numeros que nos han pasado separados por espacios
@@ -51,7 +51,7 @@ if( isset($_POST['envio_form'])){
             //Guardamos en una variable el array que generamos con explode() (nos genera un array con los elementos separados por un espacio)
             $array_num_introducidos = explode(" ", $num_introducidos);
             //Le pasamos el array y el tipo de algoritmo y nos devuelve el resultado
-            $resultado_final = ordenar($array_num_introducidos, $algoritmo);
+            $resultado_final = $algoritmo($array_num_introducidos);
             break;
         case "entrada_fichero":
             //Cargaremos los numeros desde un fichero xml y los guardaremos en un array que le pasaremos a la funcion ordenarConAlgoritmoOrdenacion()
@@ -69,7 +69,7 @@ if( isset($_POST['envio_form'])){
                 array_push($array_numeros_xml,$nodo_numero);
             }
             //Guardamos en la variable $resultado_final el resultado de pasarle el array junto al tipo de algoritmo seleccionado
-            $resultado_final = ordenar($array_numeros_xml, $algoritmo);
+            $resultado_final = $algoritmo($array_numeros_xml);
             break;
     }
 }
